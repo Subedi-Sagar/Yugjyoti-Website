@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yugjyoti Prakashan Pvt Ltd</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for better aesthetics and font */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Hide scrollbar for cleaner look, but allow scrolling */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-100 antialiased text-gray-800 flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-red-700 text-white p-4 shadow-md flex flex-col sm:flex-row justify-between items-center">
+        <div class="flex items-center justify-between w-full sm:w-auto mb-4 sm:mb-0">
+            <h1 class="text-3xl font-bold rounded-lg p-2 bg-red-800">
+                Yugjyoti Prakashan Pvt Ltd
+            </h1>
+            <!-- Search Bar (placeholder for now) -->
+            <div class="relative flex-grow mx-4 hidden sm:block">
+                <input type="text" placeholder="Search for books..." class="w-full py-2 px-4 rounded-full bg-red-600 text-white placeholder-red-200 focus:outline-none focus:ring-2 focus:ring-red-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute right-3 top-1/2 transform -translate-y-1/2 text-red-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+        </div>
+        <nav class="flex items-center space-x-4 sm:space-x-6 w-full sm:w-auto justify-center">
+            <button id="about-us-button" class="text-white hover:text-red-200 transition-colors font-medium text-sm sm:text-base">About Us</button>
+            <button id="contact-button" class="text-white hover:text-red-200 transition-colors font-medium text-sm sm:text-base">Contact</button>
+            <button id="ebooks-button" class="text-white hover:text-red-200 transition-colors font-medium text-sm sm:text-base">eBooks</button>
+            <button id="all-books-button" class="text-white hover:text-red-200 transition-colors font-medium text-sm sm:text-base hidden">All Books</button>
+            <button id="login-button" class="bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-3 sm:px-4 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 text-sm sm:text-base">Login</button>
+            <div class="relative">
+                <button id="cart-button" class="bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-3 sm:px-4 rounded-full flex items-center shadow-lg transition duration-300 ease-in-out transform hover:scale-105 text-sm sm:text-base" aria-label="Toggle Shopping Cart">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 mr-1 sm:mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    Cart (<span id="cart-count">0</span>)
+                </button>
+                <span id="cart-badge" class="absolute -top-1 -right-1 bg-yellow-400 text-red-800 text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">
+                    0
+                </span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="container mx-auto p-6 flex-grow">
+        <h2 class="text-4xl font-extrabold text-center text-red-700 mb-10 mt-6">
+            Our Revolutionary Collection
+        </h2>
+
+        <!-- Offers Section -->
+        <section class="bg-red-100 p-6 rounded-xl shadow-inner mb-10 border border-red-300">
+            <h3 class="text-3xl font-bold text-red-800 text-center mb-4">Special Offers for the Comrades!</h3>
+            <p class="text-center text-gray-700 mb-6">Seize the means of knowledge with these limited-time discounts!</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-red-200 p-5 rounded-lg shadow-md flex items-center justify-between">
+                    <p class="text-red-900 font-semibold text-lg">10% off on all Marx & Engels books!</p>
+                    <span class="bg-red-700 text-white text-sm font-bold px-3 py-1 rounded-full">CODE: MARXENGELS10</span>
+                </div>
+                <div class="bg-red-200 p-5 rounded-lg shadow-md flex items-center justify-between">
+                    <p class="text-red-900 font-semibold text-lg">Free shipping on orders over $50!</p>
+                    <span class="bg-red-700 text-white text-sm font-bold px-3 py-1 rounded-full">NO CODE NEEDED</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Book List Grid -->
+        <div id="book-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <!-- Books will be rendered here by JavaScript -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-red-800 text-white p-6 mt-10 shadow-inner">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-xl font-bold mb-3">Yugjyoti Prakashan Pvt Ltd</h3>
+                <p class="text-sm text-red-200">Dedicated to spreading revolutionary knowledge and critical thought.</p>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-3">Quick Links</h3>
+                <ul class="space-y-2">
+                    <li><button class="text-red-200 hover:text-white transition-colors text-sm" onclick="document.getElementById('about-us-button').click()">About Us</button></li>
+                    <li><button class="text-red-200 hover:text-white transition-colors text-sm" onclick="document.getElementById('contact-button').click()">Contact</button></li>
+                    <li><a href="#" class="text-red-200 hover:text-white transition-colors text-sm">Privacy Policy</a></li>
+                    <li><a href="#" class="text-red-200 hover:text-white transition-colors text-sm">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold mb-3">Connect With Us</h3>
+                <p class="text-sm text-red-200 mb-2">Email: <a href="mailto:contact@yugjyotiprakashan.com" class="text-red-200 hover:text-white underline">contact@yugjyotiprakashan.com</a></p>
+                <div class="flex space-x-4 mt-3">
+                    <!-- Placeholder for social media icons -->
+                    <a href="#" class="text-red-200 hover:text-white transition-colors" aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.812c-3.233 0-4.188 1.508-4.188 4.035v2.965z"/></svg>
+                    </a>
+                    <a href="#" class="text-red-200 hover:text-white transition-colors" aria-label="Twitter">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.447 0-6.227 2.78-6.227 6.227 0 .486.056.958.163 1.404-5.18-.26-9.764-2.73-12.835-6.479-.53.91-.837 1.97-.837 3.109 0 2.152 1.096 4.047 2.75 5.158-.807-.025-1.568-.247-2.228-.616v.086c0 3.02 2.14 5.53 4.978 6.09-.442.12-.912.187-1.393.187-.343 0-.676-.034-1.002-.095.792 2.476 3.065 4.285 5.772 4.335-2.095 1.64-4.724 2.625-7.59 2.625-.493 0-.979-.029-1.459-.085 2.709 1.748 5.93 2.772 9.397 2.772 11.292 0 17.493-9.31 17.493-17.493 0-.266-.006-.53-.017-.795z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-red-300 mt-8 border-t border-red-600 pt-6">
+            &copy; 2025 Yugjyoti Prakashan Pvt Ltd. All rights reserved. For the workers of the world!
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-80 bg-red-50 p-6 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50">
+        <div class="flex justify-between items-center mb-6 border-b pb-4 border-red-200">
+            <h2 class="text-3xl font-bold text-red-800">Your Cart</h2>
+            <button id="close-cart-button" class="text-gray-600 hover:text-gray-900 text-2xl font-bold" aria-label="Close Cart">
+                &times;
+            </button>
+        </div>
+
+        <div id="cart-empty-message" class="text-gray-600 text-center mt-10">Your cart is empty, comrade!</div>
+
+        <ul id="cart-items" class="space-y-4 max-h-[calc(100vh-350px)] overflow-y-auto pr-2 no-scrollbar">
+            <!-- Cart items will be rendered here by JavaScript -->
+        </ul>
+
+        <div id="discount-section" class="mt-6 pt-4 border-t border-red-200">
+            <label for="discount-code" class="block text-sm font-medium text-gray-700 mb-2">Discount Code:</label>
+            <div class="flex">
+                <input type="text" id="discount-code" class="flex-grow p-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="Enter code">
+                <button id="apply-discount-button" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-r-md transition-colors">Apply</button>
+            </div>
+            <p id="discount-message" class="text-sm mt-2 hidden"></p>
+        </div>
+
+        <div id="cart-summary" class="mt-4 pt-4 border-t-2 border-red-300">
+            <div class="flex justify-between items-center text-xl font-bold text-red-800 mb-2">
+                <span>Subtotal:</span>
+                <span id="cart-subtotal">$0.00</span>
+            </div>
+            <div id="discount-display" class="flex justify-between items-center text-lg text-red-600 mb-2 hidden">
+                <span>Discount:</span>
+                <span id="discount-amount">-$0.00</span>
+            </div>
+            <div class="flex justify-between items-center text-2xl font-bold text-red-900 mb-4">
+                <span>Total:</span>
+                <span id="cart-total">$0.00</span>
+            </div>
+            <button class="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-3 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-400">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Modals for Login, About Us, Contact -->
+    <div id="modal-container" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div id="modal-content" class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md relative">
+            <button id="close-modal-button" class="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-3xl font-bold" aria-label="Close Modal">
+                &times;
+            </button>
+            <!-- Content will be loaded here by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Overlay for when cart is open -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black opacity-50 z-40 hidden"></div>
+
+    <script>
+        // Book data
+        const allBooks = [
+            {
+                id: 1,
+                title: 'The Communist Manifesto',
+                author: 'Karl Marx & Friedrich Engels',
+                price: 12.99,
+                image: 'https://placehold.co/150x200/FEE2E2/DC2626?text=Manifesto',
+                description: 'A foundational text of the communist movement.',
+                type: 'physical'
+            },
+            {
+                id: 2,
+                title: 'Das Kapital, Vol. 1',
+                author: 'Karl Marx',
+                price: 24.50,
+                image: 'https://placehold.co/150x200/DBEAFE/2563EB?text=Das+Kapital',
+                description: 'A critical analysis of political economy.',
+                type: 'physical'
+            },
+            {
+                id: 3,
+                title: 'State and Revolution',
+                author: 'V.I. Lenin',
+                price: 10.75,
+                image: 'https://placehold.co/150x200/D1FAE5/059669?text=State+Revolution',
+                description: 'Explores the role of the state in society.',
+                type: 'physical'
+            },
+            {
+                id: 4,
+                title: 'Quotations from Chairman Mao Tse-tung',
+                author: 'Mao Tse-tung',
+                price: 8.99,
+                image: 'https://placehold.co/150x200/FFEDD5/F97316?text=Mao+Quotes',
+                description: 'A collection of statements from the Chinese leader.',
+                type: 'physical'
+            },
+            {
+                id: 5,
+                title: 'The Conquest of Bread',
+                author: 'Peter Kropotkin',
+                price: 15.00,
+                image: 'https://placehold.co/150x200/EDE9FE/7C3AED?text=Conquest+Bread',
+                description: 'An anarchist classic advocating for mutual aid.',
+                type: 'physical'
+            },
+            {
+                id: 6,
+                title: 'What Is To Be Done?',
+                author: 'V.I. Lenin',
+                price: 9.50,
+                image: 'https://placehold.co/150x200/FCE7F3/EC4899?text=What+To+Be+Done',
+                description: 'A political pamphlet concerning revolutionary organization.',
+                type: 'physical'
+            },
+            {
+                id: 7,
+                title: 'Socialism: Utopian and Scientific',
+                author: 'Friedrich Engels',
+                price: 7.99,
+                image: 'https://placehold.co/150x200/E0F2F7/0E7490?text=Socialism',
+                description: 'A key text explaining scientific socialism.',
+                type: 'ebook'
+            },
+            {
+                id: 8,
+                title: 'Imperialism, the Highest Stage of Capitalism',
+                author: 'V.I. Lenin',
+                price: 11.25,
+                image: 'https://placehold.co/150x200/FFF7ED/D97706?text=Imperialism',
+                description: 'Lenin\'s analysis of imperialism.',
+                type: 'ebook'
+            }
+        ];
+
+        let cart = []; // Global cart array
+        let discountApplied = 0; // Stores the discount amount
+        let currentFilter = 'all'; // 'all' or 'ebook'
+
+        // DOM elements
+        const bookListDiv = document.getElementById('book-list');
+        const cartButton = document.getElementById('cart-button');
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const closeCartButton = document.getElementById('close-cart-button');
+        const cartOverlay = document.getElementById('cart-overlay');
+        const cartItemsUl = document.getElementById('cart-items');
+        const cartSubtotalSpan = document.getElementById('cart-subtotal'); // New subtotal span
+        const cartTotalSpan = document.getElementById('cart-total');
+        const cartCountSpan = document.getElementById('cart-count');
+        const cartBadge = document.getElementById('cart-badge');
+        const cartEmptyMessage = document.getElementById('cart-empty-message');
+        const cartSummary = document.getElementById('cart-summary');
+
+        // Discount elements
+        const discountCodeInput = document.getElementById('discount-code');
+        const applyDiscountButton = document.getElementById('apply-discount-button');
+        const discountMessage = document.getElementById('discount-message');
+        const discountDisplay = document.getElementById('discount-display');
+        const discountAmountSpan = document.getElementById('discount-amount');
+
+        // Modal elements
+        const loginButton = document.getElementById('login-button');
+        const aboutUsButton = document.getElementById('about-us-button');
+        const contactButton = document.getElementById('contact-button');
+        const ebooksButton = document.getElementById('ebooks-button');
+        const allBooksButton = document.getElementById('all-books-button');
+        const modalContainer = document.getElementById('modal-container');
+        const modalContent = document.getElementById('modal-content');
+        const closeModalButton = document.getElementById('close-modal-button');
+
+        // Function to render books based on filter
+        function renderBooks(filterType = 'all') {
+            bookListDiv.innerHTML = ''; // Clear existing books
+            const booksToRender = filterType === 'ebook' ? allBooks.filter(book => book.type === 'ebook') : allBooks;
+
+            if (booksToRender.length === 0) {
+                bookListDiv.innerHTML = '<p class="text-center text-gray-600 text-xl col-span-full mt-10">No books found for this category, comrade!</p>';
+                return;
+            }
+
+            booksToRender.forEach(book => {
+                const bookCard = `
+                    <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-center p-6 border-2 border-red-200">
+                        <img src="${book.image}" alt="${book.title}" class="w-36 h-48 object-cover rounded-md mb-4 shadow-md"
+                             onerror="this.onerror=null;this.src='https://placehold.co/150x200/CCCCCC/333333?text=${encodeURIComponent(book.title.split(' ')[0])}';">
+                        <h3 class="text-xl font-semibold text-red-800 text-center mb-2">${book.title}</h3>
+                        <p class="text-gray-600 text-sm italic mb-3">by ${book.author}</p>
+                        <p class="text-gray-700 text-center mb-4 flex-grow">${book.description}</p>
+                        <p class="text-2xl font-bold text-red-700 mb-5">$${book.price.toFixed(2)}</p>
+                        <button onclick="addToCart(${book.id})" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300">
+                            Add to Cart
+                        </button>
+                    </div>
+                `;
+                bookListDiv.innerHTML += bookCard;
+            });
+        }
+
+        // Function to add a book to the cart
+        function addToCart(bookId) {
+            const bookToAdd = allBooks.find(book => book.id === bookId);
+            if (bookToAdd) {
+                const existingItem = cart.find(item => item.id === bookId);
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({ ...bookToAdd, quantity: 1 });
+                }
+                renderCart();
+                openCart();
+            }
+        }
+
+        // Function to remove an item from the cart
+        function removeFromCart(bookId) {
+            cart = cart.filter(item => item.id !== bookId);
+            renderCart();
+        }
+
+        // Function to update the quantity of an item in the cart
+        function updateQuantity(bookId, change) {
+            const itemToUpdate = cart.find(item => item.id === bookId);
+            if (itemToUpdate) {
+                itemToUpdate.quantity += change;
+                if (itemToUpdate.quantity <= 0) {
+                    removeFromCart(bookId);
+                } else {
+                    renderCart();
+                }
+            }
+        }
+
+        // Function to calculate subtotal price of items in the cart
+        function calculateSubtotal() {
+            return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+        }
+
+        // Function to apply discount
+        function applyDiscount() {
+            const code = discountCodeInput.value.trim().toUpperCase();
+            const subtotal = calculateSubtotal();
+            discountApplied = 0; // Reset discount
+
+            if (code === 'MARXENGELS10') {
+                const marxEngelsBooks = cart.filter(item => item.author.includes('Karl Marx') || item.author.includes('Friedrich Engels'));
+                const discountableAmount = marxEngelsBooks.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                discountApplied = discountableAmount * 0.10;
+                discountMessage.textContent = '10% discount applied on Marx & Engels books!';
+                discountMessage.classList.remove('hidden', 'text-red-500');
+                discountMessage.classList.add('text-green-600');
+            } else if (subtotal >= 50 && code === '') { // Example for free shipping, no code needed for now
+                // This logic can be expanded for actual free shipping, for now, just a message
+                discountMessage.textContent = 'Free shipping applied for orders over $50!';
+                discountMessage.classList.remove('hidden', 'text-red-500');
+                discountMessage.classList.add('text-green-600');
+            }
+            else if (code === 'SAVE20') { // Another example discount
+                discountApplied = subtotal * 0.20;
+                discountMessage.textContent = '20% discount applied to your order!';
+                discountMessage.classList.remove('hidden', 'text-red-500');
+                discountMessage.classList.add('text-green-600');
+            }
+            else if (code !== '') {
+                discountMessage.textContent = 'Invalid discount code.';
+                discountMessage.classList.remove('hidden', 'text-green-600');
+                discountMessage.classList.add('text-red-500');
+            } else {
+                 discountMessage.classList.add('hidden'); // Hide message if no code and no other offers
+            }
+            renderCart(); // Re-render cart to update total
+        }
+
+        // Function to render cart items
+        function renderCart() {
+            cartItemsUl.innerHTML = ''; // Clear existing cart items
+            const subtotal = calculateSubtotal();
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+
+            if (cart.length === 0) {
+                cartEmptyMessage.classList.remove('hidden');
+                cartSummary.classList.add('hidden');
+                cartBadge.classList.add('hidden');
+                discountDisplay.classList.add('hidden'); // Hide discount if cart is empty
+                discountApplied = 0; // Reset discount
+                discountCodeInput.value = ''; // Clear discount input
+                discountMessage.classList.add('hidden'); // Hide discount message
+            } else {
+                cartEmptyMessage.classList.add('hidden');
+                cartSummary.classList.remove('hidden');
+                cartBadge.classList.remove('hidden');
+                cart.forEach(item => {
+                    const cartItem = `
+                        <li class="flex items-center bg-white p-4 rounded-lg shadow-sm border border-red-100">
+                            <img src="${item.image}" alt="${item.title}" class="w-16 h-20 object-cover rounded-md mr-4">
+                            <div class="flex-grow">
+                                <h4 class="font-semibold text-red-700">${item.title}</h4>
+                                <p class="text-sm text-gray-600">$${item.price.toFixed(2)}</p>
+                                <div class="flex items-center mt-2">
+                                    <button onclick="updateQuantity(${item.id}, -1)" class="bg-red-200 text-red-800 px-2 py-1 rounded-l-md hover:bg-red-300 transition-colors" aria-label="Decrease quantity">
+                                        -
+                                    </button>
+                                    <span class="bg-red-100 text-red-800 px-3 py-1 border-t border-b border-red-200">
+                                        ${item.quantity}
+                                    </span>
+                                    <button onclick="updateQuantity(${item.id}, 1)" class="bg-red-200 text-red-800 px-2 py-1 rounded-r-md hover:bg-red-300 transition-colors" aria-label="Increase quantity">
+                                        +
+                                    </button>
+                                    <button onclick="removeFromCart(${item.id})" class="ml-4 text-red-500 hover:text-red-700 transition-colors" aria-label="Remove item">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 11-2 0v6a1 1 0 112 0V8z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                    `;
+                    cartItemsUl.innerHTML += cartItem;
+                });
+            }
+
+            cartSubtotalSpan.textContent = `$${subtotal.toFixed(2)}`;
+            const finalTotal = Math.max(0, subtotal - discountApplied); // Ensure total doesn't go negative
+            cartTotalSpan.textContent = `$${finalTotal.toFixed(2)}`;
+            cartCountSpan.textContent = totalItems;
+            cartBadge.textContent = totalItems;
+
+            if (totalItems > 0) {
+                cartBadge.classList.remove('hidden');
+            } else {
+                cartBadge.classList.add('hidden');
+            }
+
+            if (discountApplied > 0) {
+                discountDisplay.classList.remove('hidden');
+                discountAmountSpan.textContent = `-$${discountApplied.toFixed(2)}`;
+            } else {
+                discountDisplay.classList.add('hidden');
+            }
+        }
+
+        // Function to open the cart sidebar
+        function openCart() {
+            cartSidebar.classList.remove('translate-x-full');
+            cartSidebar.classList.add('translate-x-0');
+            cartOverlay.classList.remove('hidden');
+        }
+
+        // Function to close the cart sidebar
+        function closeCart() {
+            cartSidebar.classList.remove('translate-x-0');
+            cartSidebar.classList.add('translate-x-full');
+            cartOverlay.classList.add('hidden');
+        }
+
+        // Function to open a modal with specific content
+        function openModal(title, contentHtml) {
+            modalContent.innerHTML = `
+                <h2 class="text-2xl font-bold text-red-800 mb-4">${title}</h2>
+                ${contentHtml}
+                <button id="close-modal-button-inner" class="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-3xl font-bold" aria-label="Close Modal">
+                    &times;
+                </button>
+            `;
+            modalContainer.classList.remove('hidden');
+            document.getElementById('close-modal-button-inner').addEventListener('click', closeModal);
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            modalContainer.classList.add('hidden');
+        }
+
+        // Event Listeners
+        cartButton.addEventListener('click', openCart);
+        closeCartButton.addEventListener('click', closeCart);
+        cartOverlay.addEventListener('click', closeCart);
+
+        applyDiscountButton.addEventListener('click', applyDiscount);
+        discountCodeInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                applyDiscount();
+            }
+        });
+
+        loginButton.addEventListener('click', () => {
+            const loginContent = `
+                <form class="space-y-4">
+                    <div>
+                        <label for="username" class="block text-sm font-medium text-gray-700">Username:</label>
+                        <input type="text" id="username" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500">
+                    </div>
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700">Password:</label>
+                        <input type="password" id="password" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500">
+                    </div>
+                    <button type="submit" class="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded-md shadow-lg transition duration-300">Login</button>
+                </form>
+                <p class="text-center text-sm text-gray-600 mt-4">Don't have an account? <a href="#" class="text-red-600 hover:underline">Register here</a></p>
+            `;
+            openModal('Comrade Login', loginContent);
+        });
+
+        aboutUsButton.addEventListener('click', () => {
+            const aboutUsContent = `
+                <p class="text-gray-700 mb-4">Welcome to Yugjyoti Prakashan Pvt Ltd, your premier source for revolutionary literature and critical theory. We believe in the power of knowledge to transform society and are dedicated to making essential texts on communism, socialism, and anarchism accessible to all.</p>
+                <p class="text-gray-700">Our mission is to arm the working class with the ideas needed for liberation and to foster a deeper understanding of historical and contemporary struggles for a more just world.</p>
+            `;
+            openModal('About Yugjyoti Prakashan Pvt Ltd', aboutUsContent);
+        });
+
+        contactButton.addEventListener('click', () => {
+            const contactContent = `
+                <p class="text-gray-700 mb-4">Have questions, suggestions, or revolutionary ideas? Reach out to us!</p>
+                <p class="text-gray-700 mb-2"><strong>Email:</strong> <a href="mailto:contact@yugjyotiprakashan.com" class="text-red-600 hover:underline">contact@yugjyotiprakashan.com</a></p>
+                <p class="text-gray-700 mb-4"><strong>Address:</strong> 123 Revolutionary Lane, Peoples' City, Global Commune</p>
+                <form class="space-y-4">
+                    <div>
+                        <label for="contact-name" class="block text-sm font-medium text-gray-700">Your Name:</label>
+                        <input type="text" id="contact-name" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500">
+                    </div>
+                    <div>
+                        <label for="contact-email" class="block text-sm font-medium text-gray-700">Your Email:</label>
+                        <input type="email" id="contact-email" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500">
+                    </div>
+                    <div>
+                        <label for="contact-message" class="block text-sm font-medium text-gray-700">Message:</label>
+                        <textarea id="contact-message" rows="4" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded-md shadow-lg transition duration-300">Send Message</button>
+                </form>
+            `;
+            openModal('Contact Yugjyoti Prakashan Pvt Ltd', contactContent);
+        });
+
+        // eBooks and All Books button functionality
+        ebooksButton.addEventListener('click', () => {
+            currentFilter = 'ebook';
+            renderBooks(currentFilter);
+            ebooksButton.classList.add('hidden');
+            allBooksButton.classList.remove('hidden');
+        });
+
+        allBooksButton.addEventListener('click', () => {
+            currentFilter = 'all';
+            renderBooks(currentFilter);
+            allBooksButton.classList.add('hidden');
+            ebooksButton.classList.remove('hidden');
+        });
+
+
+        // Initial render on page load
+        window.onload = function() {
+            renderBooks(currentFilter);
+            renderCart(); // Initialize cart display
+        };
+    </script>
+</body>
+</html>
